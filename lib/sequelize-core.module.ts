@@ -146,7 +146,7 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
       );
       sequelize.addModels(models as any);
       if (typeof options.synchronize === 'undefined' || options.synchronize) {
-        sequelize.sync(options.sync);
+        await sequelize.sync(options.sync);
       }
       return sequelize;
     })
