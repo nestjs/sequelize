@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { delay, retryWhen, scan } from 'rxjs/operators';
 import { Sequelize } from 'sequelize-typescript';
 import { isNullOrUndefined } from 'util';
-import * as uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { CircularDependencyException } from '../exceptions/circular-dependency.exception';
 import { SequelizeModuleOptions } from '../interfaces';
 import { DEFAULT_CONNECTION_NAME } from '../sequelize.constants';
