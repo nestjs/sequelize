@@ -23,7 +23,7 @@ export type SequelizeModuleOptions = {
   autoLoadModels?: boolean;
   /**
    * If `true`, "sequelize.sync()" will be called.
-   * Default: true
+   * Default: false
    */
   synchronize?: boolean;
 } & Partial<SequelizeOptions>;
