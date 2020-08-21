@@ -13,7 +13,7 @@ import { SequelizeModule } from '../../lib';
       port: 3307, // incorrect port to force an connection error
       synchronize: false, // must be false because sync try to connect
       autoLoadModels: true,
-      retryAttempts: 2,
+      retryAttempts: 0,
       retryDelay: 1000,
     }),
   ],
