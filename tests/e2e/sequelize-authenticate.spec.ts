@@ -9,6 +9,7 @@ describe('Sequelize (authenticate)', () => {
     });
     try {
       await module.compile();
+      throw new Error('Sequelize did not throw an error'); // it should never reach this line
     } catch (err) {
       expect(err).toBeInstanceOf(ConnectionRefusedError);
     }
