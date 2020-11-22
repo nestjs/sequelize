@@ -26,6 +26,10 @@ export type SequelizeModuleOptions = {
    * Default: true
    */
   synchronize?: boolean;
+  /**
+   * Another way to connect using a connection url
+   */
+  url?: string;
 } & Partial<SequelizeOptions>;
 
 export interface SequelizeOptionsFactory {

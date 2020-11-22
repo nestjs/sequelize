@@ -32,6 +32,15 @@ import { PhotoModule } from './photo/photo.module';
       retryAttempts: 2,
       retryDelay: 1000,
     }),
+    SequelizeModule.forRoot({
+      url: 'postgres://root:root@0.0.0.0:3306/test',
+      name: 'connection_3',
+      logging: false,
+      synchronize: true,
+      autoLoadModels: true,
+      retryAttempts: 2,
+      retryDelay: 1000,
+    }),
   ],
 })
 export class ApplicationModule {}

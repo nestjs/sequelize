@@ -119,9 +119,8 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
     }
     // `as Type<SequelizeOptionsFactory>` is a workaround for microsoft/TypeScript#31603
     const inject = [
-      (options.useClass || options.useExisting) as Type<
-        SequelizeOptionsFactory
-      >,
+      (options.useClass ||
+        options.useExisting) as Type<SequelizeOptionsFactory>,
     ];
     return {
       provide: SEQUELIZE_MODULE_OPTIONS,
@@ -135,12 +134,18 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
     options: SequelizeModuleOptions,
   ): Promise<Sequelize> {
     return await defer(async () => {
+      const { url, ...sequelizeOptions } = options;
+
       if (!options.autoLoadModels) {
-        return new Sequelize(options as SequelizeOptions);
+        return url
+          ? new Sequelize(url, sequelizeOptions as SequelizeOptions)
+          : new Sequelize(sequelizeOptions as SequelizeOptions);
       }
 
       const connectionToken = options.name || DEFAULT_CONNECTION_NAME;
-      const sequelize = new Sequelize(options);
+      const sequelize = url
+        ? new Sequelize(url, sequelizeOptions)
+        : new Sequelize(sequelizeOptions);
       const models = EntitiesMetadataStorage.getEntitiesByConnection(
         connectionToken,
       );
