@@ -2,7 +2,6 @@ import { Logger, Type } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { delay, retryWhen, scan } from 'rxjs/operators';
 import { Sequelize } from 'sequelize-typescript';
-import { isNullOrUndefined } from 'util';
 import { v4 as uuid } from 'uuid';
 import { CircularDependencyException } from '../exceptions/circular-dependency.exception';
 import { SequelizeModuleOptions } from '../interfaces';
@@ -20,7 +19,7 @@ export function getModelToken(
   entity: Function,
   connection: SequelizeModuleOptions | string = DEFAULT_CONNECTION_NAME,
 ) {
-  if (isNullOrUndefined(entity)) {
+  if ((entity === null) || (entity === undefined)) {
     throw new CircularDependencyException('@InjectModel()');
   }
   const connectionPrefix = getConnectionPrefix(connection);
