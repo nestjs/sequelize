@@ -8,7 +8,7 @@ import {
   Type,
 } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
-import { defer } from 'rxjs';
+import { defer, lastValueFrom } from 'rxjs';
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 import {
   generateString,
@@ -119,9 +119,8 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
     }
     // `as Type<SequelizeOptionsFactory>` is a workaround for microsoft/TypeScript#31603
     const inject = [
-      (options.useClass || options.useExisting) as Type<
-        SequelizeOptionsFactory
-      >,
+      (options.useClass ||
+        options.useExisting) as Type<SequelizeOptionsFactory>,
     ];
     return {
       provide: SEQUELIZE_MODULE_OPTIONS,
@@ -134,26 +133,26 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
   private static async createConnectionFactory(
     options: SequelizeModuleOptions,
   ): Promise<Sequelize> {
-    return await defer(async () => {
-      if (!options.autoLoadModels) {
-        return new Sequelize(options as SequelizeOptions);
-      }
+    return lastValueFrom(
+      defer(async () => {
+        if (!options.autoLoadModels) {
+          return new Sequelize(options as SequelizeOptions);
+        }
 
-      const connectionToken = options.name || DEFAULT_CONNECTION_NAME;
-      const sequelize = new Sequelize(options);
-      const models = EntitiesMetadataStorage.getEntitiesByConnection(
-        connectionToken,
-      );
-      sequelize.addModels(models as any);
+        const connectionToken = options.name || DEFAULT_CONNECTION_NAME;
+        const sequelize = new Sequelize(options);
+        const models = EntitiesMetadataStorage.getEntitiesByConnection(
+          connectionToken,
+        );
+        sequelize.addModels(models as any);
 
-      await sequelize.authenticate();
+        await sequelize.authenticate();
 
-      if (typeof options.synchronize === 'undefined' || options.synchronize) {
-        await sequelize.sync(options.sync);
-      }
-      return sequelize;
-    })
-      .pipe(handleRetry(options.retryAttempts, options.retryDelay))
-      .toPromise();
+        if (typeof options.synchronize === 'undefined' || options.synchronize) {
+          await sequelize.sync(options.sync);
+        }
+        return sequelize;
+      }).pipe(handleRetry(options.retryAttempts, options.retryDelay)),
+    );
   }
 }
