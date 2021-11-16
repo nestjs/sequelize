@@ -1,5 +1,4 @@
-import { Type } from '@nestjs/common';
-import { ModuleMetadata } from '@nestjs/common/interfaces';
+import { ModuleMetadata, Type } from '@nestjs/common';
 import { SequelizeOptions } from 'sequelize-typescript';
 
 export type SequelizeModuleOptions = {
