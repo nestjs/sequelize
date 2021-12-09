@@ -47,7 +47,7 @@
     "sequelize-typescript": "2.1.1",
     "supertest": "6.1.6",
     "ts-jest": "27.1.1",
-    "typescript": "4.5.2"
+    "typescript": "4.5.3"
   },
   "dependencies": {
     "uuid": "8.3.2"
