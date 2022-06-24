@@ -135,12 +135,15 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
   ): Promise<Sequelize> {
     return lastValueFrom(
       defer(async () => {
+        const sequelize = options?.uri
+          ? new Sequelize(options.uri, options)
+          : new Sequelize(options);
+
         if (!options.autoLoadModels) {
-          return new Sequelize(options as SequelizeOptions);
+          return sequelize;
         }
 
         const connectionToken = options.name || DEFAULT_CONNECTION_NAME;
-        const sequelize = new Sequelize(options);
         const models = EntitiesMetadataStorage.getEntitiesByConnection(
           connectionToken,
         );
