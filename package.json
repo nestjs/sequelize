@@ -44,7 +44,7 @@
     "reflect-metadata": "0.1.13",
     "release-it": "15.5.0",
     "rxjs": "7.5.7",
-    "sequelize": "6.25.2",
+    "sequelize": "6.25.3",
     "sequelize-typescript": "2.1.5",
     "supertest": "6.3.0",
     "ts-jest": "29.0.3",
