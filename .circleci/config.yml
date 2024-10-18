@@ -17,7 +17,7 @@ jobs:
   build:
     working_directory: ~/nest
     docker:
-      - image: cimg/node:21.6
+      - image: cimg/node:22.3
     steps:
       - checkout
       - run:
@@ -49,9 +49,9 @@ jobs:
       - run:
           name: Upgrade Node.js
           command: |
-            nvm install v16
+            nvm install v20
             node -v
-            nvm alias default v16
+            nvm alias default v20
       - run:
           name: Install Docker Compose
           command: |
