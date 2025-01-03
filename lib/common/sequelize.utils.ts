@@ -2,7 +2,6 @@ import { Logger, Type } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { delay, retryWhen, scan } from 'rxjs/operators';
 import { Sequelize } from 'sequelize-typescript';
-import { v4 as uuid } from 'uuid';
 import { CircularDependencyException } from '../exceptions/circular-dependency.exception';
 import { SequelizeModuleOptions } from '../interfaces';
 import { DEFAULT_CONNECTION_NAME } from '../sequelize.constants';
@@ -94,4 +93,4 @@ export function getConnectionName(options: SequelizeModuleOptions) {
   return options && options.name ? options.name : DEFAULT_CONNECTION_NAME;
 }
 
-export const generateString = () => uuid();
+export const generateString = () => crypto.randomUUID();
