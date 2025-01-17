@@ -34,7 +34,7 @@ export function getModelToken(
  */
 export function getConnectionToken(
   connection: SequelizeModuleOptions | string = DEFAULT_CONNECTION_NAME,
-): string | Function | Type {
+): string | Function | Type<Sequelize> {
   return DEFAULT_CONNECTION_NAME === connection
     ? Sequelize
     : 'string' === typeof connection
@@ -68,8 +68,8 @@ export function getConnectionPrefix(
 export function handleRetry(
   retryAttempts = 9,
   retryDelay = 3000,
-): <T>(source: Observable) => Observable {
-  return <T>(source: Observable) =>
+): <T>(source: Observable<T>) => Observable<T> {
+  return <T>(source: Observable<T>) =>
     source.pipe(
       retryWhen((e) =>
         e.pipe(

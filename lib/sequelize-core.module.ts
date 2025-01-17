@@ -86,7 +86,7 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
 
   async onApplicationShutdown() {
     const connection = this.moduleRef.get<Sequelize>(
-      getConnectionToken(this.options as SequelizeOptions) as Type,
+      getConnectionToken(this.options as SequelizeOptions) as Type<Sequelize>,
     );
     if (connection) {
       await connection.close();
@@ -99,7 +99,7 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
     if (options.useExisting || options.useFactory) {
       return [this.createAsyncOptionsProvider(options)];
     }
-    const useClass = options.useClass as Type;
+    const useClass = options.useClass as Type<SequelizeOptionsFactory>;
     return [
       this.createAsyncOptionsProvider(options),
       {
@@ -120,7 +120,10 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
       };
     }
     // `as Type<SequelizeOptionsFactory>` is a workaround for microsoft/TypeScript#31603
-    const inject = [(options.useClass || options.useExisting) as Type];
+    const inject = [
+      (options.useClass ||
+        options.useExisting) as Type<SequelizeOptionsFactory>,
+    ];
     return {
       provide: SEQUELIZE_MODULE_OPTIONS,
       useFactory: async (optionsFactory: SequelizeOptionsFactory) =>
@@ -131,7 +134,7 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
 
   private static async createConnectionFactory(
     options: SequelizeModuleOptions,
-  ): Promise {
+  ): Promise<Sequelize> {
     return lastValueFrom(
       defer(async () => {
         const sequelize = options?.uri
