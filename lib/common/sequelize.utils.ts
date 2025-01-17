@@ -1,8 +1,8 @@
 import { Logger, Type } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 import { Observable } from 'rxjs';
 import { delay, retryWhen, scan } from 'rxjs/operators';
 import { Sequelize } from 'sequelize-typescript';
-import { v4 as uuid } from 'uuid';
 import { CircularDependencyException } from '../exceptions/circular-dependency.exception';
 import { SequelizeModuleOptions } from '../interfaces';
 import { DEFAULT_CONNECTION_NAME } from '../sequelize.constants';
@@ -34,7 +34,7 @@ export function getModelToken(
  */
 export function getConnectionToken(
   connection: SequelizeModuleOptions | string = DEFAULT_CONNECTION_NAME,
-): string | Function | Type<Sequelize> {
+): string | Function | Type {
   return DEFAULT_CONNECTION_NAME === connection
     ? Sequelize
     : 'string' === typeof connection
@@ -68,8 +68,8 @@ export function getConnectionPrefix(
 export function handleRetry(
   retryAttempts = 9,
   retryDelay = 3000,
-): <T>(source: Observable<T>) => Observable<T> {
-  return <T>(source: Observable<T>) =>
+): <T>(source: Observable) => Observable {
+  return <T>(source: Observable) =>
     source.pipe(
       retryWhen((e) =>
         e.pipe(
@@ -95,4 +95,4 @@ export function getConnectionName(options: SequelizeModuleOptions) {
   return options && options.name ? options.name : DEFAULT_CONNECTION_NAME;
 }
 
-export const generateString = () => uuid();
+export const generateString = () => randomUUID();
