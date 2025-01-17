@@ -6,7 +6,7 @@ export function createSequelizeProviders(
   entities?: Function[],
   connection?: SequelizeOptions | string,
 ): Provider[] {
-  const repositories = (entities || []).map(entity => ({
+  const repositories = (entities || []).map((entity) => ({
     provide: getModelToken(entity, connection),
     useFactory: (connection: Sequelize) => {
       if (!connection.repositoryMode) {

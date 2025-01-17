@@ -20,11 +20,11 @@ export class EntitiesMetadataStorage {
       collection = [];
       this.storage.set(connectionToken, collection);
     }
-    entities.forEach(entity => {
-      if (collection!.includes(entity)) {
+    entities.forEach((entity) => {
+      if (collection.includes(entity)) {
         return;
       }
-      collection!.push(entity);
+      collection.push(entity);
     });
   }
 

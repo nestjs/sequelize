@@ -19,7 +19,7 @@ export function getModelToken(
   entity: Function,
   connection: SequelizeModuleOptions | string = DEFAULT_CONNECTION_NAME,
 ) {
-  if ((entity === null) || (entity === undefined)) {
+  if (entity === null || entity === undefined) {
     throw new CircularDependencyException('@InjectModel()');
   }
   const connectionPrefix = getConnectionPrefix(connection);
@@ -38,10 +38,10 @@ export function getConnectionToken(
   return DEFAULT_CONNECTION_NAME === connection
     ? Sequelize
     : 'string' === typeof connection
-    ? `${connection}Connection`
-    : DEFAULT_CONNECTION_NAME === connection.name || !connection.name
-    ? Sequelize
-    : `${connection.name}Connection`;
+      ? `${connection}Connection`
+      : DEFAULT_CONNECTION_NAME === connection.name || !connection.name
+        ? Sequelize
+        : `${connection.name}Connection`;
 }
 
 /**
@@ -71,12 +71,13 @@ export function handleRetry(
 ): <T>(source: Observable<T>) => Observable<T> {
   return <T>(source: Observable<T>) =>
     source.pipe(
-      retryWhen(e =>
+      retryWhen((e) =>
         e.pipe(
           scan((errorCount, error: Error) => {
             logger.error(
-              `Unable to connect to the database. Retrying (${errorCount +
-                1})...`,
+              `Unable to connect to the database. Retrying (${
+                errorCount + 1
+              })...`,
               error.stack,
             );
             if (errorCount + 1 >= retryAttempts) {

@@ -86,9 +86,11 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
 
   async onApplicationShutdown() {
     const connection = this.moduleRef.get<Sequelize>(
-      getConnectionToken(this.options as SequelizeOptions) as Type<Sequelize>,
+      getConnectionToken(this.options as SequelizeOptions) as Type,
     );
-    connection && (await connection.close());
+    if (connection) {
+      await connection.close();
+    }
   }
 
   private static createAsyncProviders(
@@ -97,7 +99,7 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
     if (options.useExisting || options.useFactory) {
       return [this.createAsyncOptionsProvider(options)];
     }
-    const useClass = options.useClass as Type<SequelizeOptionsFactory>;
+    const useClass = options.useClass as Type;
     return [
       this.createAsyncOptionsProvider(options),
       {
@@ -118,10 +120,7 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
       };
     }
     // `as Type<SequelizeOptionsFactory>` is a workaround for microsoft/TypeScript#31603
-    const inject = [
-      (options.useClass ||
-        options.useExisting) as Type<SequelizeOptionsFactory>,
-    ];
+    const inject = [(options.useClass || options.useExisting) as Type];
     return {
       provide: SEQUELIZE_MODULE_OPTIONS,
       useFactory: async (optionsFactory: SequelizeOptionsFactory) =>
@@ -132,7 +131,7 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
 
   private static async createConnectionFactory(
     options: SequelizeModuleOptions,
-  ): Promise<Sequelize> {
+  ): Promise {
     return lastValueFrom(
       defer(async () => {
         const sequelize = options?.uri
@@ -144,9 +143,8 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
         }
 
         const connectionToken = options.name || DEFAULT_CONNECTION_NAME;
-        const models = EntitiesMetadataStorage.getEntitiesByConnection(
-          connectionToken,
-        );
+        const models =
+          EntitiesMetadataStorage.getEntitiesByConnection(connectionToken);
         sequelize.addModels(models as any);
 
         await sequelize.authenticate();
