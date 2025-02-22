@@ -43,7 +43,7 @@
     "prettier": "3.5.2",
     "reflect-metadata": "0.2.2",
     "release-it": "18.1.2",
-    "rxjs": "7.8.1",
+    "rxjs": "7.8.2",
     "sequelize": "6.37.5",
     "sequelize-typescript": "2.1.6",
     "supertest": "7.0.0",
