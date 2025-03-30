@@ -9,6 +9,9 @@ import { SequelizeCoreModule } from './sequelize-core.module';
 import { DEFAULT_CONNECTION_NAME } from './sequelize.constants';
 import { createSequelizeProviders } from './sequelize.providers';
 
+/**
+ * @publicApi
+ */
 @Module({})
 export class SequelizeModule {
   static forRoot(options: SequelizeModuleOptions): DynamicModule {

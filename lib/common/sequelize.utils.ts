@@ -14,6 +14,8 @@ const logger = new Logger('SequelizeModule');
  * @param {Function} This parameter can either be a Repostiory
  * @param {string} [connection='default'] Connection name
  * @returns {string} The Entity injection token
+ *
+ * @publicApi
  */
 export function getModelToken(
   entity: Function,
@@ -31,6 +33,8 @@ export function getModelToken(
  * @param {SequelizeModuleOptions | string} [connection='default'] This optional parameter is either
  * a SequelizeModuleOptions or a string.
  * @returns {string | Function} The Connection injection token.
+ *
+ * @publicApi
  */
 export function getConnectionToken(
   connection: SequelizeModuleOptions | string = DEFAULT_CONNECTION_NAME,
@@ -49,6 +53,8 @@ export function getConnectionToken(
  * @param {SequelizeModuleOptions | string} [connection='default'] This optional parameter is either
  * a SequelizeModuleOptions or a string.
  * @returns {string | Function} The Connection injection token.
+ *
+ * @publicApi
  */
 export function getConnectionPrefix(
   connection: SequelizeModuleOptions | string = DEFAULT_CONNECTION_NAME,
@@ -91,6 +97,9 @@ export function handleRetry(
     );
 }
 
+/**
+ * @publicApi
+ */
 export function getConnectionName(options: SequelizeModuleOptions) {
   return options && options.name ? options.name : DEFAULT_CONNECTION_NAME;
 }

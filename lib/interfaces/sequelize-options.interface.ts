@@ -2,6 +2,9 @@ import { Type } from '@nestjs/common';
 import { ModuleMetadata } from '@nestjs/common/interfaces';
 import { SequelizeOptions } from 'sequelize-typescript';
 
+/**
+ * @publicApi
+ */
 export type SequelizeModuleOptions = {
   /**
    * Connection name
@@ -32,12 +35,18 @@ export type SequelizeModuleOptions = {
   uri?: string;
 } & Partial<SequelizeOptions>;
 
+/**
+ * @publicApi
+ */
 export interface SequelizeOptionsFactory {
   createSequelizeOptions(
     connectionName?: string,
   ): Promise<SequelizeModuleOptions> | SequelizeModuleOptions;
 }
 
+/**
+ * @publicApi
+ */
 export interface SequelizeModuleAsyncOptions
   extends Pick<ModuleMetadata, 'imports'> {
   name?: string;
