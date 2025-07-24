@@ -85,6 +85,14 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
   }
 
   async onApplicationShutdown() {
+    if (
+      typeof this.options.autoCloseConnection !== 'undefined' &&
+      !this.options.autoCloseConnection
+    ) {
+      /* Skip closing Sequelize connection automatically by shutdown hook */
+      return;
+    }
+
     const connection = this.moduleRef.get<Sequelize>(
       getConnectionToken(this.options as SequelizeOptions) as Type<Sequelize>,
     );
