@@ -14,13 +14,13 @@ import {
   generateString,
   getConnectionToken,
   handleRetry,
-} from './common/sequelize.utils';
+} from './common';
 import { EntitiesMetadataStorage } from './entities-metadata.storage';
 import {
   SequelizeModuleAsyncOptions,
   SequelizeModuleOptions,
   SequelizeOptionsFactory,
-} from './interfaces/sequelize-options.interface';
+} from './interfaces';
 import {
   DEFAULT_CONNECTION_NAME,
   SEQUELIZE_MODULE_ID,
