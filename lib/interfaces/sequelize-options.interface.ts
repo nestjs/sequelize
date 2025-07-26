@@ -33,6 +33,11 @@ export type SequelizeModuleOptions = {
    * Sequelize connection string
    */
   uri?: string;
+  /**
+   * If `true`, Sequelize connection will close automatically by `onApplicationShutdown` hook handler if shutdown lifecycle hooks are enabled.
+   * Default value is `true`
+   */
+  autoCloseConnection?: boolean;
 } & Partial<SequelizeOptions>;
 
 /**
