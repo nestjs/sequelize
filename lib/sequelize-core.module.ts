@@ -14,13 +14,13 @@ import {
   generateString,
   getConnectionToken,
   handleRetry,
-} from './common/sequelize.utils';
+} from './common';
 import { EntitiesMetadataStorage } from './entities-metadata.storage';
 import {
   SequelizeModuleAsyncOptions,
   SequelizeModuleOptions,
   SequelizeOptionsFactory,
-} from './interfaces/sequelize-options.interface';
+} from './interfaces';
 import {
   DEFAULT_CONNECTION_NAME,
   SEQUELIZE_MODULE_ID,
@@ -85,6 +85,14 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
   }
 
   async onApplicationShutdown() {
+    if (
+      typeof this.options.autoCloseConnection !== 'undefined' &&
+      !this.options.autoCloseConnection
+    ) {
+      /* Skip closing Sequelize connection automatically by shutdown hook */
+      return;
+    }
+
     const connection = this.moduleRef.get<Sequelize>(
       getConnectionToken(this.options as SequelizeOptions) as Type<Sequelize>,
     );
