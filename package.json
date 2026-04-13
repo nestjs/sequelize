@@ -6,7 +6,7 @@
   "license": "MIT",
   "url": "https://github.com/nestjs/sequelize#readme",
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"**/*.ts\"",
     "lint": "oxlint lib/",
     "prepublish:npm": "npm run build",

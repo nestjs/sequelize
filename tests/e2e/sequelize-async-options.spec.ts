@@ -22,7 +22,7 @@ describe('Sequelize (async configuration)', () => {
     return request(server)
       .post('/photo')
       .expect(201)
-      .expect(res => {
+      .expect((res) => {
         if (res.body.name !== 'Nest') throw new Error('invalid name');
         if (res.body.description !== 'Is great!')
           throw new Error('invalid description');

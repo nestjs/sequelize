@@ -10,16 +10,17 @@
     "target": "ES2021",
     "sourceMap": false,
     "outDir": "./dist",
-    "rootDir": ".",
+    "rootDir": "./lib",
     "skipLibCheck": true,
     "isolatedModules": true,
-    "types": ["node", "vitest/globals"]
+    "types": ["node"]
   },
   "include": [
-    "lib/**/*",
-    "tests/**/*"
+    "lib/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.spec.ts",
+    "tests"
   ]
 }
