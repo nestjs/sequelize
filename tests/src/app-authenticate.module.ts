@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { SequelizeModule } from '../../lib';
+import { SequelizeModule } from '../../lib/index.js';
 
 @Module({
   imports: [
