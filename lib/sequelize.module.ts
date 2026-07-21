@@ -1,13 +1,13 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { SequelizeOptions } from 'sequelize-typescript';
-import { EntitiesMetadataStorage } from './entities-metadata.storage';
+import { EntitiesMetadataStorage } from './entities-metadata.storage.js';
 import {
   SequelizeModuleAsyncOptions,
   SequelizeModuleOptions,
-} from './interfaces/sequelize-options.interface';
-import { SequelizeCoreModule } from './sequelize-core.module';
-import { DEFAULT_CONNECTION_NAME } from './sequelize.constants';
-import { createSequelizeProviders } from './sequelize.providers';
+} from './interfaces/sequelize-options.interface.js';
+import { SequelizeCoreModule } from './sequelize-core.module.js';
+import { DEFAULT_CONNECTION_NAME } from './sequelize.constants.js';
+import { createSequelizeProviders } from './sequelize.providers.js';
 
 /**
  * @publicApi

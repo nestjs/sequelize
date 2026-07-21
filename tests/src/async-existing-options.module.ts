@@ -3,8 +3,8 @@ import {
   SequelizeModule,
   SequelizeModuleOptions,
   SequelizeOptionsFactory,
-} from '../../lib';
-import { PhotoModule } from './photo/photo.module';
+} from '../../lib/index.js';
+import { PhotoModule } from './photo/photo.module.js';
 
 class ConfigService implements SequelizeOptionsFactory {
   createSequelizeOptions(): SequelizeModuleOptions {

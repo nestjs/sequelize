@@ -10,22 +10,22 @@ import {
 import { ModuleRef } from '@nestjs/core';
 import { defer, lastValueFrom } from 'rxjs';
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
+import type {
+  SequelizeModuleAsyncOptions,
+  SequelizeModuleOptions,
+  SequelizeOptionsFactory,
+} from './interfaces/index.js';
 import {
   generateString,
   getConnectionToken,
   handleRetry,
-} from './common';
-import { EntitiesMetadataStorage } from './entities-metadata.storage';
-import {
-  SequelizeModuleAsyncOptions,
-  SequelizeModuleOptions,
-  SequelizeOptionsFactory,
-} from './interfaces';
+} from './common/index.js';
+import { EntitiesMetadataStorage } from './entities-metadata.storage.js';
 import {
   DEFAULT_CONNECTION_NAME,
   SEQUELIZE_MODULE_ID,
   SEQUELIZE_MODULE_OPTIONS,
-} from './sequelize.constants';
+} from './sequelize.constants.js';
 
 @Global()
 @Module({})

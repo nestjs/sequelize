@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '../../../lib';
-import { Photo } from './photo.entity';
+import { InjectModel } from '../../../lib/index.js';
+import { Photo } from './photo.entity.js';
 
 @Injectable()
 export class PhotoService {

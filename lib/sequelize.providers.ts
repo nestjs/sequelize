@@ -1,6 +1,6 @@
 import { Provider } from '@nestjs/common';
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
-import { getConnectionToken, getModelToken } from './common/sequelize.utils';
+import { getConnectionToken, getModelToken } from './common/sequelize.utils.js';
 
 export function createSequelizeProviders(
   entities?: Function[],

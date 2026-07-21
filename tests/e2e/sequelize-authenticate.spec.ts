@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
 import { ConnectionRefusedError } from 'sequelize';
-import { ApplicationAuthenticateModule } from '../src/app-authenticate.module';
+import { ApplicationAuthenticateModule } from '../src/app-authenticate.module.js';
 
 describe('Sequelize (authenticate)', () => {
   it(`should throw error`, async () => {
