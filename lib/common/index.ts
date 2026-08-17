@@ -1,2 +1,2 @@
-export * from './sequelize.decorators';
-export * from './sequelize.utils';
+export * from './sequelize.decorators.js';
+export * from './sequelize.utils.js';

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { SequelizeModule } from '../../../lib';
-import { PhotoController } from './photo.controller';
-import { Photo } from './photo.entity';
-import { PhotoService } from './photo.service';
+import { SequelizeModule } from '../../../lib/index.js';
+import { PhotoController } from './photo.controller.js';
+import { Photo } from './photo.entity.js';
+import { PhotoService } from './photo.service.js';
 
 @Module({
   imports: [

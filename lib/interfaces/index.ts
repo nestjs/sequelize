@@ -1,1 +1,1 @@
-export * from './sequelize-options.interface';
+export * from './sequelize-options.interface.js';

@@ -1,6 +1,6 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { SequelizeModule } from '../../lib';
-import { Photo } from './photo/photo.entity';
+import { SequelizeModule } from '../../lib/index.js';
+import { Photo } from './photo/photo.entity.js';
 
 @Module({})
 export class DatabaseModule {

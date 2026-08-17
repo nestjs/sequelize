@@ -3,9 +3,9 @@ import {
   SequelizeModule,
   SequelizeModuleOptions,
   SequelizeOptionsFactory,
-} from '../../lib';
-import { Photo } from './photo/photo.entity';
-import { PhotoModule } from './photo/photo.module';
+} from '../../lib/index.js';
+import { Photo } from './photo/photo.entity.js';
+import { PhotoModule } from './photo/photo.module.js';
 
 class ConfigService implements SequelizeOptionsFactory {
   createSequelizeOptions(): SequelizeModuleOptions {

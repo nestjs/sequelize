@@ -2,7 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { Server } from 'http';
 import request from 'supertest';
-import { AsyncApplicationModule } from '../src/app-async.module';
+import { AsyncApplicationModule } from '../src/app-async.module.js';
 
 describe('Sequelize (async configuration)', () => {
   let server: Server;

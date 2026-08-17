@@ -3,9 +3,9 @@ import { randomUUID } from 'crypto';
 import { Observable } from 'rxjs';
 import { delay, retryWhen, scan } from 'rxjs/operators';
 import { Sequelize } from 'sequelize-typescript';
-import { CircularDependencyException } from '../exceptions/circular-dependency.exception';
-import { SequelizeModuleOptions } from '../interfaces';
-import { DEFAULT_CONNECTION_NAME } from '../sequelize.constants';
+import { CircularDependencyException } from '../exceptions/circular-dependency.exception.js';
+import { SequelizeModuleOptions } from '../interfaces/index.js';
+import { DEFAULT_CONNECTION_NAME } from '../sequelize.constants.js';
 
 const logger = new Logger('SequelizeModule');
 

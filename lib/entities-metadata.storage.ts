@@ -1,4 +1,4 @@
-import { SequelizeModuleOptions } from './interfaces';
+import { SequelizeModuleOptions } from './interfaces/index.js';
 
 type ConnectionToken = SequelizeModuleOptions | string;
 

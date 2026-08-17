@@ -1,6 +1,5 @@
-import { Type } from '@nestjs/common';
-import { ModuleMetadata } from '@nestjs/common/interfaces';
-import { SequelizeOptions } from 'sequelize-typescript';
+import type { ModuleMetadata, Type } from '@nestjs/common';
+import type { SequelizeOptions } from 'sequelize-typescript';
 
 /**
  * @publicApi

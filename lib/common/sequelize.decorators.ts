@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
-import { SequelizeModuleOptions } from '../interfaces/sequelize-options.interface';
-import { DEFAULT_CONNECTION_NAME } from '../sequelize.constants';
-import { getConnectionToken, getModelToken } from './sequelize.utils';
+import { SequelizeModuleOptions } from '../interfaces/sequelize-options.interface.js';
+import { DEFAULT_CONNECTION_NAME } from '../sequelize.constants.js';
+import { getConnectionToken, getModelToken } from './sequelize.utils.js';
 
 /**
  * @publicApi
