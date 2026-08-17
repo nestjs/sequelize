@@ -52,7 +52,7 @@ export interface SequelizeOptionsFactory {
  * @publicApi
  */
 export interface SequelizeModuleAsyncOptions
-  extends Partial<Pick<ModuleMetadata, 'imports'>> {
+  extends Pick<ModuleMetadata, 'imports'> {
   name?: string;
   useExisting?: Type<SequelizeOptionsFactory>;
   useClass?: Type<SequelizeOptionsFactory>;
