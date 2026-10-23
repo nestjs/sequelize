@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { defer, lastValueFrom } from 'rxjs';
-import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
+import { Sequelize } from 'sequelize-typescript';
 import type {
   SequelizeModuleAsyncOptions,
   SequelizeModuleOptions,
@@ -23,6 +23,7 @@ import {
 import { EntitiesMetadataStorage } from './entities-metadata.storage.js';
 import {
   DEFAULT_CONNECTION_NAME,
+  SEQUELIZE_CONNECTION_NAME,
   SEQUELIZE_MODULE_ID,
   SEQUELIZE_MODULE_OPTIONS,
 } from './sequelize.constants.js';
@@ -33,29 +34,40 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
   constructor(
     @Inject(SEQUELIZE_MODULE_OPTIONS)
     private readonly options: SequelizeModuleOptions,
+    @Inject(SEQUELIZE_CONNECTION_NAME)
+    private readonly connectionName: string,
     private readonly moduleRef: ModuleRef,
   ) {}
 
   static forRoot(options: SequelizeModuleOptions = {}): DynamicModule {
+    const connectionName = options.name || DEFAULT_CONNECTION_NAME;
     const sequelizeModuleOptions = {
       provide: SEQUELIZE_MODULE_OPTIONS,
       useValue: options,
     };
     const connectionProvider = {
-      provide: getConnectionToken(options as SequelizeOptions) as string,
+      provide: getConnectionToken(connectionName) as string,
       useFactory: async () => await this.createConnectionFactory(options),
     };
 
     return {
       module: SequelizeCoreModule,
-      providers: [connectionProvider, sequelizeModuleOptions],
+      providers: [
+        connectionProvider,
+        sequelizeModuleOptions,
+        {
+          provide: SEQUELIZE_CONNECTION_NAME,
+          useValue: connectionName,
+        },
+      ],
       exports: [connectionProvider],
     };
   }
 
   static forRootAsync(options: SequelizeModuleAsyncOptions): DynamicModule {
+    const connectionName = options.name || DEFAULT_CONNECTION_NAME;
     const connectionProvider = {
-      provide: getConnectionToken(options as SequelizeOptions) as string,
+      provide: getConnectionToken(connectionName) as string,
       useFactory: async (sequelizeOptions: SequelizeModuleOptions) => {
         if (options.name) {
           return await this.createConnectionFactory({
@@ -79,6 +91,10 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
           provide: SEQUELIZE_MODULE_ID,
           useValue: generateString(),
         },
+        {
+          provide: SEQUELIZE_CONNECTION_NAME,
+          useValue: connectionName,
+        },
       ],
       exports: [connectionProvider],
     };
@@ -94,7 +110,7 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
     }
 
     const connection = this.moduleRef.get<Sequelize>(
-      getConnectionToken(this.options as SequelizeOptions) as Type<Sequelize>,
+      getConnectionToken(this.connectionName) as Type<Sequelize>,
     );
     if (connection) {
       await connection.close();
