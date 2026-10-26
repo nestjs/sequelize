@@ -9,3 +9,6 @@ tsconfig.json
 .github
 CONTRIBUTING.md
 renovate.json
+
+# Claude Code
+.claude/
