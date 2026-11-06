@@ -1,7 +1,17 @@
 {
   "name": "@nestjs/sequelize",
   "version": "12.0.0",
-  "description": "Nest - modern, fast, powerful node.js web framework (@sequelize)",
+  "description": "Sequelize for NestJS: connections and models through dependency injection, transactions and multiple databases, for SQL databases.",
+  "keywords": [
+    "nestjs",
+    "nest",
+    "sequelize",
+    "orm",
+    "sql",
+    "postgres",
+    "mysql",
+    "database"
+  ],
   "author": "Kamil Mysliwiec",
   "license": "MIT",
   "url": "https://github.com/nestjs/sequelize#readme",
