@@ -174,10 +174,21 @@ export class SequelizeCoreModule implements OnApplicationShutdown {
           EntitiesMetadataStorage.getEntitiesByConnection(connectionToken);
         sequelize.addModels(models as any);
 
-        await sequelize.authenticate();
+        try {
+          await sequelize.authenticate();
 
-        if (typeof options.synchronize === 'undefined' || options.synchronize) {
-          await sequelize.sync(options.sync);
+          if (
+            typeof options.synchronize === 'undefined' ||
+            options.synchronize
+          ) {
+            await sequelize.sync(options.sync);
+          }
+        } catch (error) {
+          // A failed attempt is discarded (and retried with a new instance),
+          // so release the connections it opened. Otherwise every attempt
+          // leaves a connection open, which also keeps the process alive.
+          await sequelize.close().catch(() => undefined);
+          throw error;
         }
         return sequelize;
       }).pipe(handleRetry(options.retryAttempts, options.retryDelay)),
