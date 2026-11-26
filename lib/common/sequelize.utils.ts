@@ -10,8 +10,8 @@ import { DEFAULT_CONNECTION_NAME } from '../sequelize.constants.js';
 const logger = new Logger('SequelizeModule');
 
 /**
- * This function generates an injection token for an Repostiory
- * @param {Function} This parameter can either be a Repostiory
+ * This function generates an injection token for an Repository
+ * @param {Function} This parameter can either be a Repository
  * @param {string} [connection='default'] Connection name
  * @returns {string} The Entity injection token
  *
