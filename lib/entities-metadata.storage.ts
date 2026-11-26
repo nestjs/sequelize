@@ -1,3 +1,4 @@
+import { getConnectionName } from './common/sequelize.utils.js';
 import { SequelizeModuleOptions } from './interfaces/index.js';
 
 type ConnectionToken = SequelizeModuleOptions | string;
@@ -10,7 +11,9 @@ export class EntitiesMetadataStorage {
     entities: Function[],
   ) {
     const connectionToken =
-      typeof connection === 'string' ? connection : connection.name;
+      typeof connection === 'string'
+        ? connection
+        : getConnectionName(connection);
     if (!connectionToken) {
       return;
     }
@@ -30,7 +33,9 @@ export class EntitiesMetadataStorage {
 
   static getEntitiesByConnection(connection: ConnectionToken): Function[] {
     const connectionToken =
-      typeof connection === 'string' ? connection : connection.name;
+      typeof connection === 'string'
+        ? connection
+        : getConnectionName(connection);
 
     if (!connectionToken) {
       return [];
