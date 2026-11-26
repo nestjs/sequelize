@@ -80,13 +80,16 @@ export function handleRetry(
       retryWhen((e) =>
         e.pipe(
           scan((errorCount, error: Error) => {
+            const isLastAttempt = errorCount + 1 >= retryAttempts;
+            const retryMessage = isLastAttempt
+              ? ''
+              : ` Retrying (${errorCount + 1})...`;
+
             logger.error(
-              `Unable to connect to the database. Retrying (${
-                errorCount + 1
-              })...`,
+              `Unable to connect to the database.${retryMessage}`,
               error.stack,
             );
-            if (errorCount + 1 >= retryAttempts) {
+            if (isLastAttempt) {
               throw error;
             }
             return errorCount + 1;
