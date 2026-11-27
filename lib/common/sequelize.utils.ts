@@ -71,10 +71,23 @@ export function getConnectionPrefix(
   return connection.name + '_';
 }
 
+const DEFAULT_RETRY_ATTEMPTS = 10;
+const DEFAULT_RETRY_DELAY = 3000;
+
 export function handleRetry(
-  retryAttempts = 9,
-  retryDelay = 3000,
+  retryAttempts = DEFAULT_RETRY_ATTEMPTS,
+  retryDelay = DEFAULT_RETRY_DELAY,
 ): <T>(source: Observable<T>) => Observable<T> {
+  // A limit that is not a number, such as the NaN that `Number()` makes of an
+  // unset environment variable, gets its default: no comparison is true for
+  // NaN, so the attempts would never run out, and a delay of NaN doesn't wait
+  // at all. Infinity still retries forever.
+  if (isNaN(retryAttempts)) {
+    retryAttempts = DEFAULT_RETRY_ATTEMPTS;
+  }
+  if (isNaN(retryDelay)) {
+    retryDelay = DEFAULT_RETRY_DELAY;
+  }
   return <T>(source: Observable<T>) =>
     source.pipe(
       retryWhen((e) =>

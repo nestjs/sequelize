@@ -10,7 +10,7 @@ export type SequelizeModuleOptions = {
    */
   name?: string;
   /**
-   * Number of times to retry connecting
+   * Maximum number of connection attempts, including the first one
    * Default: 10
    */
   retryAttempts?: number;
